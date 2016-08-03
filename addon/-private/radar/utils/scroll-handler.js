@@ -22,7 +22,11 @@ export class ScrollHandler {
       }
 
       this.elements[index] = element;
-      this.handlers.set(element, { top: undefined, left: undefined, handlers: [handler] });
+      this.handlers.set(element, {
+        top: undefined,
+        left: undefined,
+        handlers: [handler]
+      });
     } else {
       let handlers = this.handlers.get(element).handlers;
 
@@ -41,7 +45,7 @@ export class ScrollHandler {
       let index = elementCache.handlers.indexOf(handler);
 
       if (index === -1) {
-        throw new Error('Attempted to remove an unattached handler');
+        console.error('Attempted to remove an unattached handler');
       }
 
       elementCache.handlers.splice(index, 1);
@@ -57,7 +61,7 @@ export class ScrollHandler {
       }
 
     } else {
-      throw new Error('Attempted to remove an unattached handler');
+      console.error('Attempted to remove an unattached handler');
     }
   }
 
@@ -80,7 +84,10 @@ export class ScrollHandler {
           Promise.resolve(info)
             .then((info) => {
               for (let j = 0; j < info.handlers.length; j++) {
-                info.handlers[j].call(null, { top: info.top, left: info.left });
+                info.handlers[j].call(null, {
+                  top: info.top,
+                  left: info.left
+                });
               }
             });
         }
